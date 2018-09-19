@@ -10,7 +10,7 @@
 void circuit(HDC hdc,HWND hwnd) {		//контур
 	RECT rt;
 	char buf[100];
-	SetBkColor(hdc, RGB(255, 255, 255));		//цвет фона
+	SetBkColor(hdc, RGB(0, 0, 0));		//цвет фона
 	SetTextColor(hdc, RGB(255, 0, 0));
 	HPEN hRedPen = CreatePen(PS_SOLID, 5, RGB(255, 0, 0));
 	HPEN hOldPen = SelectPen(hdc, hRedPen);
@@ -36,10 +36,8 @@ void paint(HDC hdc,HWND hwnd) {			//закрашенный
 	GetClientRect(hwnd, &rt);				//определение размера области окна
 	sprintf_s (buf, "–азмер окна %d на %d пикселей", rt.right, rt.bottom);
 	TextOutA(hdc, 10, 10, buf, strlen(buf));
-	
 	Rectangle(hdc, 40, 30, 120, 150);
 	getch() != 27;
-
 	SelectPen(hdc, hOldPen);				// выбираем в контекст отображени€ предыдущую кисть
 	SelectBrush(hdc, hOldBrush);			// удал€ем красное перо
 	DeletePen(hRedPen);						// удал€ем зеленую кисть
@@ -50,7 +48,43 @@ void paint(HDC hdc,HWND hwnd) {			//закрашенный
 
 void embed(HDC hdc, HWND hwnd) {			//вложеннный
 
+	RECT rt;
+	char buf[100];
+	//SetBkColor(hdc, RGB(0, 0, 0));												//цвет фона
+	//SetTextColor(hdc, RGB(255, 0, 0));
+	//HPEN hRedPen = CreatePen(PS_SOLID, 5, RGB(255, 0, 0));
+	//HPEN hOldPen = SelectPen(hdc, hRedPen);
+	//HBRUSH hGreenBrush = CreateSolidBrush(RGB(0, 255, 0));
+	//HBRUSH hOldBrush = SelectBrush(hdc, hGreenBrush);
+	//GetClientRect(hwnd, &rt);														//определение размера области окна
+	//sprintf_s(buf, "–азмер окна %d на %d пикселей", rt.right, rt.bottom);
+	//TextOutA(hdc, 10, 10, buf, strlen(buf));
+	//Rectangle(hdc, 150, 150, 350, 450);
+	
+		SetBkColor(hdc, RGB(0, 0, 0));											//цвет фона
+		SetTextColor(hdc, RGB(255, 0, 0));
+		HPEN zRedPen = CreatePen(PS_SOLID, 5, RGB(255, 0, 0));
+		HPEN zOldPen = SelectPen(hdc, zRedPen);
+		HBRUSH zGreenBrush = CreateSolidBrush(RGB(0, 0, 255));
+		HBRUSH zOldBrush = SelectBrush(hdc, zGreenBrush);
+		GetClientRect(hwnd, &rt);																			//определение размера области окна
+		sprintf_s(buf, "–азмер окна %d на %d пикселей", rt.right, rt.bottom);
+		TextOutA(hdc, 10, 10, buf, strlen(buf));
+		Rectangle(hdc, 70, 30, 120, 150);
+		SelectPen(hdc, zOldPen);																	// выбираем в контекст отображени€ предыдущую кисть
+		SelectBrush(hdc, zOldBrush);														// удал€ем красное перо
+		DeletePen(zRedPen);																			// удал€ем зеленую кисть
+		zRedPen = CreatePen(PS_SOLID, 5, RGB(0, 255, 0));
+		DeleteBrush(zGreenBrush);															// освобождаем контекст отображени€
+		zGreenBrush = CreateSolidBrush(RGB(0, 255, 255));
 
+	getch() != 27;
+	//SelectPen(hdc, hOldPen);				// выбираем в контекст отображени€ предыдущую кисть
+	//SelectBrush(hdc, hOldBrush);			// удал€ем красное перо
+	//DeletePen(hRedPen);						// удал€ем зеленую кисть
+	//hRedPen = CreatePen(PS_SOLID, 5, RGB(0, 255, 0));
+	//DeleteBrush(hGreenBrush);				// освобождаем контекст отображени€
+	//hGreenBrush = CreateSolidBrush(RGB(0, 255, 255));
 
 }
 
@@ -63,6 +97,9 @@ void main() {
 	
 	circuit(hdc, hwnd);
 	paint(hdc, hwnd);
+	embed(hdc,  hwnd);
+
+
 
 	ReleaseDC(hwnd, hdc);
 }
